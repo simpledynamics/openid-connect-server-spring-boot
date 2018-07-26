@@ -90,7 +90,7 @@
 											<li data-th-if="${not #strings.isEmpty(client.clientUri)}"><span data-th-text="#{approve.home_page}"></span>: <a data-th-href="${ client.clientUri }" data-th-text="${ client.clientUri }"></a></li>
 											<li data-th-if="${not #strings.isEmpty(client.policyUri)}"><span data-th-text="#{approve.policy}"></span>: <a data-th-href="${ client.policyUri }" data-th-text="${ client.policyUri }"></a></li>
 											<li data-th-if="${not #strings.isEmpty(client.tosUri)}"><span data-th-text="#{approve.terms}"></span>: <a data-th-href="${ client.tosUri }" data-th-text="${ client.tosUri }"></a></li>
-											<li data-th-if="${not #strings.isEmpty(contacts))}"><span data-th-text="|#{approve.contacts} ${ contacts }|"></span></li>
+											<li data-th-if="${not #strings.isEmpty(contacts)}"><span data-th-text="|#{approve.contacts} ${ contacts }|"></span></li>
 										</ul>
 									</div>
 								</th-block>
