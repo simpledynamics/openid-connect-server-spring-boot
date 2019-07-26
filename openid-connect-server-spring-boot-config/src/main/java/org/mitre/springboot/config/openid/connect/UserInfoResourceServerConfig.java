@@ -25,10 +25,6 @@ public class UserInfoResourceServerConfig extends ResourceServerConfigurerAdapte
 	String PATTERN = "/" + org.mitre.openid.connect.web.UserInfoEndpoint.URL + "**";
 	
 	@Autowired
-	@Qualifier("corsFilter")
-	protected Filter corsFilter;
-	
-	@Autowired
 	protected OAuth2AuthenticationEntryPoint authenticationEntryPoint; 
 
 	@Bean
@@ -58,7 +54,6 @@ public class UserInfoResourceServerConfig extends ResourceServerConfigurerAdapte
 				.and()
 			.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
 				.and()
-			.addFilterBefore(corsFilter, SecurityContextPersistenceFilter.class)
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		;

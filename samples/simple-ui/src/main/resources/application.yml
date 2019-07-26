@@ -39,4 +39,3 @@ openid:
         userinfo.enabled: true
         discovery.enabled: true
       protectedresourceregistration.enabled: true
-      

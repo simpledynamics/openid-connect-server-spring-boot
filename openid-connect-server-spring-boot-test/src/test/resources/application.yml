@@ -13,7 +13,7 @@ spring:
 logging:
   level:
     ROOT: INFO
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG
 server:
   port: 8080
   contextPath: /

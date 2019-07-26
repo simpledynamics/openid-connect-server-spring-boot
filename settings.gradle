@@ -1,5 +1,5 @@
-include ':openid-connect-server-spring-boot-config'
-include ':openid-connect-server-spring-boot-ui-thymeleaf'
-include ':openid-connect-server-spring-boot-test'
-include ':samples/default'
-include ':samples/simple-ui'
+rootProject.name = "openid-connect-server-spring-boot"
+
+include 'openid-connect-server-spring-boot-config'
+include 'openid-connect-server-spring-boot-ui-thymeleaf'
+include 'openid-connect-server-spring-boot-test'

@@ -20,11 +20,7 @@ import org.springframework.security.web.authentication.Http403ForbiddenEntryPoin
 @Configuration
 @ConditionalOnProperty(havingValue="true", name="openid.connect.endpoints.oidc.jwksetpublishing.enabled", matchIfMissing=true)
 public class JwkWebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	@Qualifier("corsFilter")
-	protected Filter corsFilter;
-	
+
 	@Autowired
 	protected Http403ForbiddenEntryPoint http403ForbiddenEntryPoint;
 	

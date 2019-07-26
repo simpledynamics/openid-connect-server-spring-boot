@@ -1,11 +1,13 @@
+apply from:"dependencies.gradle"
+
 subprojects {
+	apply plugin: "eclipse"
+	apply plugin: "idea"
+	apply plugin: "java"
+	apply plugin: "maven"
+	apply plugin: "signing"
+
 	buildscript {
-		ext {
-			springVersion = "4.3.7.RELEASE"
-			springBootVersion = "1.5.2.RELEASE"
-			springSecurityOauthVersion = "2.0.13.RELEASE"
-			openIdConnectVersion = "1.3.0"
-		}
 		repositories {
 			mavenCentral()
 			jcenter()
@@ -14,12 +16,6 @@ subprojects {
 			maven {url "http://repo.spring.io/release"}
 		}
 	}
-	
-	apply plugin: "eclipse"
-	apply plugin: "idea" 
-	apply plugin: "java"
-	apply plugin: "maven"
-	apply plugin: "signing"
 
 	ext {
 		baseVersion = "0.1.4"
@@ -60,7 +56,8 @@ subprojects {
 
 	project.ext.set("ossrhUsername",  project.hasProperty("ossrhUsername") ? ossrhUsername : System.getenv("SONATYPE_USERNAME"))
 	project.ext.set("ossrhPassword",  project.hasProperty("ossrhPassword") ? ossrhPassword : System.getenv("SONATYPE_PASSWORD"))
-	
+
+
 	uploadArchives {
 		repositories {
 			mavenDeployer {
@@ -118,5 +115,5 @@ subprojects {
 			}
 		}
 	}
-	
+
 }

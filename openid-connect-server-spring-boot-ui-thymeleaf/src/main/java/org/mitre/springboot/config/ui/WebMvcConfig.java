@@ -71,7 +71,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
      // @formatter:on
 
         uiConfiguration.setJsFiles(jsResources);
-        uiConfiguration.setTemplateFiles(new HashSet<>());
         return uiConfiguration;
     }
 

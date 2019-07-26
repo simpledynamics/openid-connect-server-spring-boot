@@ -43,10 +43,6 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    @Qualifier("corsFilter")
-    protected Filter corsFilter;
-
-    @Autowired
     protected OAuth2AuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
@@ -151,8 +147,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.and()
 			.addFilterAfter(jwtBearerClientAssertionTokenEndpointFilter, AbstractPreAuthenticatedProcessingFilter.class)
 			.addFilterAfter(clientCredentialsTokenEndpointFilter, BasicAuthenticationFilter.class)	
-			.addFilterAfter(corsFilter, SecurityContextPersistenceFilter.class)
-			
+
 			.exceptionHandling()
 				.authenticationEntryPoint(authenticationEntryPoint)
 				.accessDeniedHandler(oAuth2AccessDeniedHandler)

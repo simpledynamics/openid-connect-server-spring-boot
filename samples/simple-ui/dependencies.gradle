@@ -1,0 +1,11 @@
+ext {
+    h2DatabaseVersion = "1.4.192"
+    openIdConnectSpringBootVersion = "0.1.4-SNAPSHOT"
+
+
+    libs = [
+            openIdConnectSpringBootConfig   : "net.simpledynamics:openid-connect-server-spring-boot-config:${openIdConnectSpringBootVersion}",
+            openIdConnectSpringBootUI       : "net.simpledynamics:openid-connect-server-spring-boot-ui-thymeleaf:${openIdConnectSpringBootVersion}",
+            h2Database                      : "com.h2database:h2:${h2DatabaseVersion}"
+    ]
+}

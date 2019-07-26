@@ -1,26 +1,29 @@
+apply plugin: "java-library"
 
 dependencies {
     // Spring Boot Starters
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-	compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-	compile("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauthVersion}")	
-   	compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}") {
+    compile libs.springBootStarterWeb
+    compile libs.springBootStarterSecurity
+    compile libs.springSecurityOauth2
+    compile(libs.springBootStarterDataJPA) {
     	exclude group: 'org.hibernate', module: 'hibernate-entitymanager'
     }
 
     // OpenID Connect
-    compile("org.mitre:openid-connect-server:${openIdConnectVersion}")
-    compile("org.bouncycastle:bcprov-jdk15on:1.52")    
+    compile libs.mitreOpenIdConnectServer
+    compile libs.bouncyCastle
 
-    runtime("org.eclipse.persistence:org.eclipse.persistence.jpa:2.5.2") 
-    runtime("com.zaxxer:HikariCP:2.4.3")
+    runtime libs.eclipsePersistenceJpa
+    runtime libs.hikariCP
+    runtime libs.springBootStarterLogging
 
-	runtime("org.springframework.boot:spring-boot-starter-logging:${springBootVersion}")
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-    testCompile("org.springframework.security:spring-security-test:4.2.2.RELEASE")
-    testCompile("com.jayway.jsonpath:json-path:2.0.0")
-    testCompile("org.apache.httpcomponents:httpclient:4.5.3")
+    testImplementation libs.springBootStarterTest
+    testImplementation libs.springSecurityTest
+    testImplementation libs.jsonPath
+    testImplementation libs.httpClient
     
     //Embedded test db
-    testRuntime "com.h2database:h2:1.4.192"
+//    testRuntimeOnly libs.h2Database
+
+    runtimeOnly libs.h2Database
 }

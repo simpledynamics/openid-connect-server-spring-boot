@@ -24,10 +24,6 @@ public class DynamicClientRegistrationResourceServerConfig extends ResourceServe
 	String PATTERN = "/" + org.mitre.openid.connect.web.DynamicClientRegistrationEndpoint.URL + "/**";
 	
 	@Autowired
-	@Qualifier("corsFilter")
-	protected Filter corsFilter;
-	
-	@Autowired
 	protected OAuth2AuthenticationEntryPoint authenticationEntryPoint; 
 	
 	@Bean
@@ -52,7 +48,6 @@ public class DynamicClientRegistrationResourceServerConfig extends ResourceServe
 				.and()
 			.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
 				.and()
-			.addFilterBefore(corsFilter, SecurityContextPersistenceFilter.class)
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()

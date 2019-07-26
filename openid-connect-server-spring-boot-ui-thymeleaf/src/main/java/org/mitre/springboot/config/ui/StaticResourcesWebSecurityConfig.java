@@ -17,9 +17,6 @@ public class StaticResourcesWebSecurityConfig extends WebSecurityConfigurerAdapt
 	@Autowired
 	private Http403ForbiddenEntryPoint http403ForbiddenEntryPoint;
 
-	@Autowired
-	private CorsFilter corsFilter;
-
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/resources/**");
@@ -35,7 +32,6 @@ public class StaticResourcesWebSecurityConfig extends WebSecurityConfigurerAdapt
 			.authorizeRequests()
 				.antMatchers("/resources/**").permitAll()
 				.and()
-			.addFilterBefore(corsFilter, SecurityContextPersistenceFilter.class)
 			.exceptionHandling()
 				.authenticationEntryPoint(http403ForbiddenEntryPoint)
 				.and()

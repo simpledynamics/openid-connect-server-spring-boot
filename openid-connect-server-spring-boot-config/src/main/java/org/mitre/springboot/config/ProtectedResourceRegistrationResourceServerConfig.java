@@ -24,10 +24,6 @@ public class ProtectedResourceRegistrationResourceServerConfig extends ResourceS
 	String PATTERN = "/" + org.mitre.openid.connect.web.ProtectedResourceRegistrationEndpoint.URL + "/**";
 
 	@Autowired
-	@Qualifier("corsFilter")
-	protected Filter corsFilter;
-	
-	@Autowired
 	protected OAuth2AuthenticationEntryPoint authenticationEntryPoint; 
 	
 	@Bean
@@ -51,7 +47,6 @@ public class ProtectedResourceRegistrationResourceServerConfig extends ResourceS
 				.and()
 			.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
 				.and()
-			.addFilterBefore(corsFilter, SecurityContextPersistenceFilter.class)
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 				.and()

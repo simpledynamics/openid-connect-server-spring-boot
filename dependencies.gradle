@@ -1,0 +1,34 @@
+ext {
+    springVersion = "4.3.22.RELEASE"
+    springBootVersion = "1.5.21.RELEASE"
+    springSecurityOauthVersion = "2.0.13.RELEASE"
+    springSecurityTestVersion = "4.2.13.RELEASE"
+    openIdConnectVersion = "1.3.3"
+    h2DatabaseVersion = "1.4.192"
+    jsonPathVersion = "2.0.0"
+    httpClientVersion = "4.5.3"
+    bouncyCastleVersion = "1.56"
+    thymeleafSpringSecurityVersion = "2.1.3.RELEASE"
+    eclipsePersistenceJpaVersion = "2.5.2"
+    hikariCPVersion = "2.4.3"
+
+
+    libs = [
+            springBootStarterWeb        : "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+            springBootStarterSecurity   : "org.springframework.boot:spring-boot-starter-security:${springBootVersion}",
+            springSecurityOauth2        : "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauthVersion}",
+            springBootStarterDataJPA    : "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}",
+            springSecurityTest          : "org.springframework.security:spring-security-test:${springSecurityTestVersion}",
+            h2Database                  : "com.h2database:h2:${h2DatabaseVersion}",
+            jsonPath                    : "com.jayway.jsonpath:json-path:${jsonPathVersion}",
+            httpClient                  : "org.apache.httpcomponents:httpclient:${httpClientVersion}",
+            bouncyCastle                : "org.bouncycastle:bcprov-jdk15on:${bouncyCastleVersion}",
+            mitreOpenIdConnectServer    : "org.mitre:openid-connect-server:${openIdConnectVersion}",
+            springBootStarterThymeleaf  : "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}",
+            thymeleafSpringSecurity     : "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:${thymeleafSpringSecurityVersion}",
+            eclipsePersistenceJpa       : "org.eclipse.persistence:org.eclipse.persistence.jpa:${eclipsePersistenceJpaVersion}",
+            hikariCP                    : "com.zaxxer:HikariCP:${hikariCPVersion}",
+            springBootStarterLogging    : "org.springframework.boot:spring-boot-starter-logging:${springBootVersion}",
+            springBootStarterTest       : "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    ]
+}

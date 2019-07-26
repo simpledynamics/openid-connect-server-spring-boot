@@ -2,14 +2,13 @@
 dependencies {
 	
 	// OpenID Connect
-    compile("org.mitre:openid-connect-server:${openIdConnectVersion}")
-    compile("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauthVersion}")
-    compile("org.bouncycastle:bcprov-jdk15on:1.52")    
-    
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-	compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-	
-	runtime("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
-    runtime("org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE")
+    implementation libs.springSecurityOauth2
+    implementation libs.springBootStarterWeb
+    implementation libs.springBootStarterSecurity
+    implementation libs.mitreOpenIdConnectServer
+    implementation libs.bouncyCastle
+
+	runtime libs.springBootStarterThymeleaf
+    runtime libs.thymeleafSpringSecurity
 
 }

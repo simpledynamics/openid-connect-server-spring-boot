@@ -35,7 +35,6 @@ import org.mitre.oauth2.service.impl.UriEncodedClientUserDetailsService;
 import org.mitre.oauth2.token.ChainedTokenGranter;
 import org.mitre.oauth2.token.JWTAssertionTokenGranter;
 import org.mitre.oauth2.token.ScopeServiceAwareOAuth2RequestValidator;
-import org.mitre.oauth2.web.CorsFilter;
 import org.mitre.oauth2.web.OAuthConfirmationController;
 import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
 import org.mitre.openid.connect.filter.AuthorizationRequestFilter;
@@ -84,6 +83,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -107,7 +107,12 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
+
+import java.util.Arrays;
 
 @Configuration
 @ConditionalOnClass(EnableOpenIDConnectServer.class)
@@ -235,7 +240,7 @@ public class OpenIDConnectServerConfig{
 
     @Bean
     @ConditionalOnMissingBean(AuthorizationCodeServices.class)
-    public AuthorizationCodeServices defaultOAuth2AuthorizationCodeService(){
+    public DefaultOAuth2AuthorizationCodeService defaultOAuth2AuthorizationCodeService(){
         return new DefaultOAuth2AuthorizationCodeService();
     }
 
@@ -250,7 +255,7 @@ public class OpenIDConnectServerConfig{
     //Primary is necessary. Sometimes Spring Boot failed when is starting because there are 3 beans of type ResourceServerTokenServices.
     // We have to force this bean 
     @Primary
-    public OAuth2TokenEntityService defaultOAuth2ProviderTokenService(){
+    public DefaultOAuth2ProviderTokenService defaultOAuth2ProviderTokenService(){
         return new DefaultOAuth2ProviderTokenService();
     }
 
@@ -336,10 +341,37 @@ public class OpenIDConnectServerConfig{
     public static class OAuthConfirmationControllerConfiguration{
     }
 
+    /**
+     * It is mandatory to use this CorsFilter because Cors with Spring MVC does not work.
+     * The Spring-OAuth executes a security rule before than Cors with Spring MVC.
+     *
+     * See more https://github.com/spring-projects/spring-security-oauth/issues/330
+     */
     @Bean
     @ConditionalOnMissingBean(name = "corsFilter")
     public Filter corsFilter(){
-        return new CorsFilter();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setExposedHeaders(Arrays.asList("X-Requested-With","Origin","Content-Type", "Accept", "Authorization"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
+
+    }
+
+    @Bean
+    public FilterRegistrationBean corsFilterRegistration() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(corsFilter());
+
+        filterRegistrationBean.setOrder(FilterRegistrationBean.REQUEST_WRAPPER_FILTER_MAX_ORDER - 101);
+
+        return filterRegistrationBean;
     }
 
     /*
